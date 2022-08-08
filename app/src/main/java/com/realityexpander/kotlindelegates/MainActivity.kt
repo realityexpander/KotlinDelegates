@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity(),
         DeepLinkHandler by DeepLinkHandlerImpl(),
         OldWayAnalyticsLogger  // old way of doing it, just for comparison.
 {
-    val oldWayLogger = OldWayAnalyticsLoggerImpl()
+    val oldWayLogger = OldWayAnalyticsLoggerImpl()  // Old way of creating an object for an interface
 
     private val bigThing by MyLazy {
         println("Hello world")
@@ -34,6 +34,7 @@ class MainActivity : ComponentActivity(),
         handleDeepLink(this, intent)
     }
 
+    // Old way of calling an implemented interface
     override fun oldWayRegisterLifecycleOwner(owner: LifecycleOwner) {
         oldWayLogger.oldWayRegisterLifecycleOwner(owner)
     }
