@@ -7,25 +7,26 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import java.math.BigDecimal
 import kotlin.reflect.KProperty
 
 class MainActivity : ComponentActivity(),
-        AnalyticsLogger by AnalyticsLoggerImpl(),  // Creates an implementation delegate for the AnalyticsLogger interface
+        AnalyticsLogger by AnalyticsLoggerImpl(),  // Creates an implementation delegate object for the AnalyticsLogger interface
         DeepLinkHandler by DeepLinkHandlerImpl(),
         OldWayAnalyticsLogger  // old way of doing it, just for comparison.
 {
     val oldWayLogger = OldWayAnalyticsLoggerImpl()
 
-    private val obj by MyLazy {
+    private val bigThing by MyLazy {
         println("Hello world")
-        3
+        BigDecimal(500_000_000_000)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         registerLifecycleOwner(this)
-        println(obj)
+        println(bigThing)
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -38,6 +39,7 @@ class MainActivity : ComponentActivity(),
     }
 }
 
+// Lazy delegation example
 class MyLazy<out T: Any>(
     private val initialize: () -> T
 ) {
