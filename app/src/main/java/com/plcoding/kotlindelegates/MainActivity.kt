@@ -19,9 +19,12 @@ import com.plcoding.kotlindelegates.ui.theme.KotlinDelegatesTheme
 import kotlin.reflect.KProperty
 
 class MainActivity : ComponentActivity(),
-        AnalyticsLogger by AnalyticsLoggerImpl(),
-        DeepLinkHandler by DeepLinkHandlerImpl()
+        AnalyticsLogger by AnalyticsLoggerImpl(),  // Creates an implementation delegate for the AnalyticsLogger interface
+        DeepLinkHandler by DeepLinkHandlerImpl(),
+        OldWayAnalyticsLogger  // old way of doing it, just for comparison.
 {
+    val oldWayLogger = OldWayAnalyticsLoggerImpl()
+
     private val obj by MyLazy {
         println("Hello world")
         3
@@ -29,6 +32,7 @@ class MainActivity : ComponentActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         registerLifecycleOwner(this)
         println(obj)
     }
@@ -36,6 +40,10 @@ class MainActivity : ComponentActivity(),
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         handleDeepLink(this, intent)
+    }
+
+    override fun oldWayRegisterLifecycleOwner(owner: LifecycleOwner) {
+        oldWayLogger.oldWayRegisterLifecycleOwner(owner)
     }
 }
 
@@ -62,12 +70,30 @@ class DeepLinkHandlerImpl: DeepLinkHandler {
     }
 }
 
+interface OldWayAnalyticsLogger {
+    fun oldWayRegisterLifecycleOwner(owner: LifecycleOwner)
+}
+
 interface AnalyticsLogger {
     fun registerLifecycleOwner(owner: LifecycleOwner)
 }
 
 class AnalyticsLoggerImpl: AnalyticsLogger, LifecycleEventObserver {
     override fun registerLifecycleOwner(owner: LifecycleOwner) {
+        owner.lifecycle.addObserver(this)
+    }
+
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+        when(event) {
+            Lifecycle.Event.ON_RESUME -> println("User entered the screen")
+            Lifecycle.Event.ON_PAUSE -> println("User left the screen")
+            else -> Unit
+        }
+    }
+}
+
+class OldWayAnalyticsLoggerImpl: OldWayAnalyticsLogger, LifecycleEventObserver {
+    override fun oldWayRegisterLifecycleOwner(owner: LifecycleOwner) {
         owner.lifecycle.addObserver(this)
     }
 
