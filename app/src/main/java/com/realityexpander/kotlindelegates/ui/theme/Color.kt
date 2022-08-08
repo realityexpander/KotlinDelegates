@@ -1,4 +1,4 @@
-package com.plcoding.kotlindelegates.ui.theme
+package com.realityexpander.kotlindelegates.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

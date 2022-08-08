@@ -1,21 +1,12 @@
-package com.plcoding.kotlindelegates
+package com.realityexpander.kotlindelegates
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.plcoding.kotlindelegates.ui.theme.KotlinDelegatesTheme
 import kotlin.reflect.KProperty
 
 class MainActivity : ComponentActivity(),

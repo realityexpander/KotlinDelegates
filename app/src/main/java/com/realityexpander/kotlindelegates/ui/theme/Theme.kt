@@ -1,4 +1,4 @@
-package com.plcoding.kotlindelegates.ui.theme
+package com.realityexpander.kotlindelegates.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

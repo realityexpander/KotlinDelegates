@@ -1,4 +1,4 @@
-package com.plcoding.kotlindelegates
+package com.realityexpander.kotlindelegates
 
 import org.junit.Test
 

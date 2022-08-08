@@ -1,4 +1,4 @@
-package com.plcoding.kotlindelegates.ui.theme
+package com.realityexpander.kotlindelegates.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
